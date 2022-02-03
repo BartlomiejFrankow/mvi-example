@@ -11,7 +11,7 @@ interface Middleware<S : State, A : Action> {
      * @param[store] This is a reference to the [Store] that dispatched this action. We should only call this with a new action, and not trigger
      * the same action again or risk ending up in a loop.
      */
-    fun process(
+    suspend fun process(
         action: A,
         currentState: S,
         store: Store<S, A>

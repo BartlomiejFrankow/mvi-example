@@ -10,7 +10,7 @@ class LoginNetworkMiddleware(
     private val loginRepository: LoginRepository
 ) : Middleware<LoginViewState, LoginAction> {
 
-    override fun process(action: LoginAction, currentState: LoginViewState, store: Store<LoginViewState, LoginAction>) {
+    override suspend fun process(action: LoginAction, currentState: LoginViewState, store: Store<LoginViewState, LoginAction>) {
         when (action) {
             is SignInButtonClicked -> {
                 store.dispatch(LoginStarted)
