@@ -1,6 +1,7 @@
 package com.example.mviexample.ui.login
 
 import androidx.lifecycle.ViewModel
+import com.example.mviexample.LoggingMiddleware
 import com.example.mviexample.redux.Store
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +12,8 @@ class LoginViewModel @Inject constructor() : ViewModel() {
 
     private val store = Store(
         initialState = LoginViewState(),
-        reducer = LoginReducer()
+        reducer = LoginReducer(),
+        middlewares = listOf(LoggingMiddleware())
     )
 
     val viewState: StateFlow<LoginViewState> = store.state
