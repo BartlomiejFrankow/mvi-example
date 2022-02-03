@@ -55,6 +55,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun processViewState(viewState: LoginViewState) {
 
         binding.loader.isVisible = viewState.showLoader
+
+        binding.emailInputLayout.error = viewState.emailError
     }
 
     override fun onDestroyView() {
