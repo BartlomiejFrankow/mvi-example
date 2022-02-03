@@ -20,13 +20,11 @@ class Store<S : State, A : Action>(
     val state: StateFlow<S> = _state
 
     suspend fun dispatch(action: A) {
-        val currentState = state.value
-
         middlewares.forEach { middleware ->
-            middleware.process(action, currentState, this)
+            middleware.process(action, state.value, this)
         }
 
-        val newState = reducer.reduce(currentState, action)
+        val newState = reducer.reduce(state.value, action)
 
         _state.value = newState
     }
