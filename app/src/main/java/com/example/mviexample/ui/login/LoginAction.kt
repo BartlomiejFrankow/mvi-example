@@ -13,4 +13,7 @@ sealed class LoginAction : Action {
     object LoginStarted : LoginAction()
     object LoginCompleted : LoginAction()
     object InvalidEmailSubmitted : LoginAction()
+    object ValidEmailSubmitted : LoginAction()
+    object InvalidPasswordSubmitted : LoginAction()
+    object ValidPasswordSubmitted : LoginAction()
 }

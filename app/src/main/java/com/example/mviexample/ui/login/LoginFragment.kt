@@ -9,6 +9,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.mviexample.R
 import com.example.mviexample.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,16 +49,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         binding.loginButton.setOnClickListener {
             viewModel.signInButtonClicked()
-//            findNavController().navigate(R.id.loginFragment_to_profileFragment)
         }
     }
 
     private fun processViewState(viewState: LoginViewState) {
+        if (viewState.goToDetailsScreen) navigateToDetailScreen()
 
         binding.loader.isVisible = viewState.showLoader
 
-        binding.emailInputLayout.error = viewState.emailError
+        binding.emailInputLayout.error = viewState.emailError?.let { getString(it) } ?: ""
+
+        binding.passwordInputLayout.error = viewState.passwordError?.let { getString(it) } ?: ""
     }
+
+    private fun navigateToDetailScreen() = findNavController().navigate(R.id.loginFragment_to_profileFragment)
 
     override fun onDestroyView() {
         super.onDestroyView()

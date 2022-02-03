@@ -9,6 +9,7 @@ data class LoginViewState(
     val email: String = "",
     val password: String = "",
     val showLoader: Boolean = false,
-    val emailError: String? = null,
-    val passwordError: String? = null
+    val emailError: Int? = null,
+    val passwordError: Int? = null,
+    val goToDetailsScreen: Boolean = false
 ) : State
