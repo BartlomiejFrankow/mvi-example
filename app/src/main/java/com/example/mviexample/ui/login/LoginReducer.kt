@@ -18,7 +18,7 @@ class LoginReducer : Reducer<LoginViewState, LoginAction> {
             LoginStarted -> currentState.copy(showLoader = true)
             SignInButtonClicked -> currentState
             InvalidEmailSubmitted -> currentState.copy(emailError = R.string.email_error)
-            InvalidPasswordSubmitted -> currentState.copy(passwordError = R.string.invalid_password)
+            InvalidPasswordSubmitted -> currentState.copy(passwordError = R.string.password_error)
             ValidEmailSubmitted -> currentState.copy(emailError = null)
             ValidPasswordSubmitted -> currentState.copy(passwordError = null)
         }
