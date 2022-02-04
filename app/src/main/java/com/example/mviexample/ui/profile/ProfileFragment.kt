@@ -1,4 +1,4 @@
-package com.example.mviexample.profile
+package com.example.mviexample.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
