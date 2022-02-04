@@ -8,6 +8,7 @@ class LoginReducerTest {
 
     @Test
     fun onEmailChangedUpdateState() {
+        // Given
         val inputState = LoginViewState()
         val inputAction = LoginAction.EmailChanged("test@email.com")
 
@@ -15,79 +16,88 @@ class LoginReducerTest {
             email = "test@email.com"
         )
 
-        val reducer = LoginReducer()
-        val newState = reducer.reduce(inputState, inputAction)
+        // When
+        val newState = LoginReducer().reduce(inputState, inputAction)
 
+        // Then
         assertEquals(expectedState, newState)
     }
 
     @Test
     fun onLoginStartedShowLoader() {
+        // Given
         val inputState = LoginViewState()
         val inputAction = LoginAction.LoginStarted
 
-        val reducer = LoginReducer()
-        val newState = reducer.reduce(inputState, inputAction)
+        // When
+        val newState = LoginReducer().reduce(inputState, inputAction)
 
+        // Then
         assertEquals(true, newState.showLoader)
     }
 
     @Test
     fun onLoginFailedHideLoader() {
+        // Given
         val inputState = LoginViewState()
         val inputAction = LoginAction.LoginFailed(null)
 
-        val reducer = LoginReducer()
-        val newState = reducer.reduce(inputState, inputAction)
+        // When
+        val newState = LoginReducer().reduce(inputState, inputAction)
 
+        // Then
         assertEquals(false, newState.showLoader)
     }
 
     @Test
     fun onInvalidEmailShowErrorMessage() {
+        // Given
         val inputState = LoginViewState()
-        val reducer = LoginReducer()
 
-        val newState = reducer.reduce(inputState, LoginAction.InvalidEmailSubmitted)
+        // When
+        val newState = LoginReducer().reduce(inputState, LoginAction.InvalidEmailSubmitted)
 
+        // Then
         assertEquals(R.string.email_error, newState.emailError)
     }
 
     @Test
     fun onValidAfterInvalidEmailHideErrorMessage() {
+        // Given
         val inputState = LoginViewState()
         val reducer = LoginReducer()
 
-        // Invalid email action
-        reducer.reduce(inputState, LoginAction.InvalidEmailSubmitted)
+        // When
+        reducer.reduce(inputState, LoginAction.InvalidEmailSubmitted) // Invalid email action
+        val newState = reducer.reduce(inputState, LoginAction.ValidEmailSubmitted) // Valid email action
 
-        // Valid email action
-        val newState = reducer.reduce(inputState, LoginAction.ValidEmailSubmitted)
-
+        // Then
         assertEquals(null, newState.emailError)
     }
 
     @Test
     fun onInvalidPasswordShowErrorMessage() {
+        // Given
         val inputState = LoginViewState()
 
-        val reducer = LoginReducer()
-        val newState = reducer.reduce(inputState, LoginAction.InvalidPasswordSubmitted)
+        // When
+        val newState = LoginReducer().reduce(inputState, LoginAction.InvalidPasswordSubmitted)
 
+        // Then
         assertEquals(R.string.password_error, newState.passwordError)
     }
 
     @Test
     fun onValidAfterInvalidPasswordHideErrorMessage() {
+        // Given
         val inputState = LoginViewState()
         val reducer = LoginReducer()
 
-        // Invalid email action
-        reducer.reduce(inputState, LoginAction.InvalidPasswordSubmitted)
+        // When
+        reducer.reduce(inputState, LoginAction.InvalidPasswordSubmitted) // Invalid password action
+        val newState = reducer.reduce(inputState, LoginAction.ValidPasswordSubmitted) // Valid password action
 
-        // Valid email action
-        val newState = reducer.reduce(inputState, LoginAction.ValidPasswordSubmitted)
-
+        // Then
         assertEquals(null, newState.passwordError)
     }
 }
